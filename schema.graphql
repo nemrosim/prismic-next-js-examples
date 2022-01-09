@@ -1,0 +1,175 @@
+"""DateTime"""
+scalar DateTime
+
+type Home_page implements _Document & _Linkable {
+  _linkType: String
+  _meta: Meta!
+  header: Json
+}
+
+"""A connection to a list of items."""
+type Home_pageConnectionConnection {
+  """A list of edges."""
+  edges: [Home_pageConnectionEdge]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+  totalCount: Long!
+}
+
+"""An edge in a connection."""
+type Home_pageConnectionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Home_page!
+}
+
+"""Raw JSON value"""
+scalar Json
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Meta {
+  """Alternate languages the document."""
+  alternateLanguages: [RelatedDocument!]!
+
+  """The first publication date of the document."""
+  firstPublicationDate: DateTime
+
+  """The id of the document."""
+  id: String!
+
+  """The language of the document."""
+  lang: String!
+
+  """The last publication date of the document."""
+  lastPublicationDate: DateTime
+
+  """The tags of the document."""
+  tags: [String!]!
+
+  """The type of the document."""
+  type: String!
+
+  """The uid of the document."""
+  uid: String
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+type Query {
+  _allDocuments(after: String, before: String, first: Int, firstPublicationDate: DateTime, firstPublicationDate_after: DateTime, firstPublicationDate_before: DateTime, fulltext: String, id: String, id_in: [String!], lang: String, last: Int, lastPublicationDate: DateTime, lastPublicationDate_after: DateTime, lastPublicationDate_before: DateTime, similar: similar, sortBy: SortDocumentsBy, tags: [String!], tags_in: [String!], type: String, type_in: [String!]): _DocumentConnection!
+  allHome_pages(after: String, before: String, first: Int, firstPublicationDate: DateTime, firstPublicationDate_after: DateTime, firstPublicationDate_before: DateTime, fulltext: String, id: String, id_in: [String!], lang: String, last: Int, lastPublicationDate: DateTime, lastPublicationDate_after: DateTime, lastPublicationDate_before: DateTime, similar: similar, sortBy: SortHome_pagey, tags: [String!], tags_in: [String!], uid: String, uid_in: [String!], where: WhereHome_page): Home_pageConnectionConnection!
+}
+
+type RelatedDocument {
+  """The id of the document."""
+  id: String!
+
+  """The language of the document."""
+  lang: String!
+
+  """The type of the document."""
+  type: String!
+
+  """The uid of the document."""
+  uid: String
+}
+
+enum SortDocumentsBy {
+  meta_firstPublicationDate_ASC
+  meta_firstPublicationDate_DESC
+  meta_lastPublicationDate_ASC
+  meta_lastPublicationDate_DESC
+}
+
+enum SortHome_pagey {
+  header_ASC
+  header_DESC
+  meta_firstPublicationDate_ASC
+  meta_firstPublicationDate_DESC
+  meta_lastPublicationDate_ASC
+  meta_lastPublicationDate_DESC
+}
+
+input WhereHome_page {
+  """header"""
+  header_fulltext: String
+}
+
+"""A prismic document"""
+interface _Document {
+  _meta: Meta!
+}
+
+"""A connection to a list of items."""
+type _DocumentConnection {
+  """A list of edges."""
+  edges: [_DocumentEdge]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+  totalCount: Long!
+}
+
+"""An edge in a connection."""
+type _DocumentEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: _Document!
+}
+
+"""An external link"""
+type _ExternalLink implements _Linkable {
+  _linkType: String
+  target: String
+  url: String!
+}
+
+"""A linked file"""
+type _FileLink implements _Linkable {
+  _linkType: String
+  name: String!
+  size: Long!
+  url: String!
+}
+
+"""A linked image"""
+type _ImageLink implements _Linkable {
+  _linkType: String
+  height: Int!
+  name: String!
+  size: Long!
+  url: String!
+  width: Int!
+}
+
+"""A prismic link"""
+interface _Linkable {
+  _linkType: String
+}
+
+input similar {
+  documentId: String!
+  max: Int!
+}
