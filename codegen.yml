@@ -4,7 +4,7 @@ schema:
       method: GET
       headers:
         Authorization: "Token ${PRISMIC_API_KEY}"
-        Prismic-Ref: "YbJ83REAACAABhce"
+        Prismic-Ref: "Ydt7DxMAACcAihUw"
 generates:
   # Schema
   ./schema.graphql:

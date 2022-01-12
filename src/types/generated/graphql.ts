@@ -19,6 +19,34 @@ export type Scalars = {
   Long: any;
 };
 
+export type Blog_Page = _Document & _Linkable & {
+  __typename?: 'Blog_page';
+  _linkType?: Maybe<Scalars['String']>;
+  _meta: Meta;
+  content?: Maybe<Scalars['Json']>;
+  title?: Maybe<Scalars['Json']>;
+  title_image?: Maybe<Scalars['Json']>;
+};
+
+/** A connection to a list of items. */
+export type Blog_PageConnectionConnection = {
+  __typename?: 'Blog_pageConnectionConnection';
+  /** A list of edges. */
+  edges?: Maybe<Array<Maybe<Blog_PageConnectionEdge>>>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  totalCount: Scalars['Long'];
+};
+
+/** An edge in a connection. */
+export type Blog_PageConnectionEdge = {
+  __typename?: 'Blog_pageConnectionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Blog_Page;
+};
+
 export type Home_Page = _Document & _Linkable & {
   __typename?: 'Home_page';
   _linkType?: Maybe<Scalars['String']>;
@@ -81,7 +109,9 @@ export type PageInfo = {
 export type Query = {
   __typename?: 'Query';
   _allDocuments: _DocumentConnection;
+  allBlog_pages: Blog_PageConnectionConnection;
   allHome_pages: Home_PageConnectionConnection;
+  blog_page?: Maybe<Blog_Page>;
 };
 
 
@@ -109,6 +139,31 @@ export type Query_AllDocumentsArgs = {
 };
 
 
+export type QueryAllBlog_PagesArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  firstPublicationDate?: InputMaybe<Scalars['DateTime']>;
+  firstPublicationDate_after?: InputMaybe<Scalars['DateTime']>;
+  firstPublicationDate_before?: InputMaybe<Scalars['DateTime']>;
+  fulltext?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  id_in?: InputMaybe<Array<Scalars['String']>>;
+  lang?: InputMaybe<Scalars['String']>;
+  last?: InputMaybe<Scalars['Int']>;
+  lastPublicationDate?: InputMaybe<Scalars['DateTime']>;
+  lastPublicationDate_after?: InputMaybe<Scalars['DateTime']>;
+  lastPublicationDate_before?: InputMaybe<Scalars['DateTime']>;
+  similar?: InputMaybe<Similar>;
+  sortBy?: InputMaybe<SortBlog_Pagey>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
+  tags_in?: InputMaybe<Array<Scalars['String']>>;
+  uid?: InputMaybe<Scalars['String']>;
+  uid_in?: InputMaybe<Array<Scalars['String']>>;
+  where?: InputMaybe<WhereBlog_Page>;
+};
+
+
 export type QueryAllHome_PagesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -133,6 +188,12 @@ export type QueryAllHome_PagesArgs = {
   where?: InputMaybe<WhereHome_Page>;
 };
 
+
+export type QueryBlog_PageArgs = {
+  lang: Scalars['String'];
+  uid: Scalars['String'];
+};
+
 export type RelatedDocument = {
   __typename?: 'RelatedDocument';
   /** The id of the document. */
@@ -144,6 +205,17 @@ export type RelatedDocument = {
   /** The uid of the document. */
   uid?: Maybe<Scalars['String']>;
 };
+
+export enum SortBlog_Pagey {
+  ContentAsc = 'content_ASC',
+  ContentDesc = 'content_DESC',
+  MetaFirstPublicationDateAsc = 'meta_firstPublicationDate_ASC',
+  MetaFirstPublicationDateDesc = 'meta_firstPublicationDate_DESC',
+  MetaLastPublicationDateAsc = 'meta_lastPublicationDate_ASC',
+  MetaLastPublicationDateDesc = 'meta_lastPublicationDate_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
 
 export enum SortDocumentsBy {
   MetaFirstPublicationDateAsc = 'meta_firstPublicationDate_ASC',
@@ -160,6 +232,13 @@ export enum SortHome_Pagey {
   MetaLastPublicationDateAsc = 'meta_lastPublicationDate_ASC',
   MetaLastPublicationDateDesc = 'meta_lastPublicationDate_DESC'
 }
+
+export type WhereBlog_Page = {
+  /** content */
+  content_fulltext?: InputMaybe<Scalars['String']>;
+  /** title */
+  title_fulltext?: InputMaybe<Scalars['String']>;
+};
 
 export type WhereHome_Page = {
   /** header */

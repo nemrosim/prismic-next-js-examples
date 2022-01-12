@@ -1,3 +1,30 @@
+type Blog_page implements _Document & _Linkable {
+  _linkType: String
+  _meta: Meta!
+  content: Json
+  title: Json
+  title_image: Json
+}
+
+"""A connection to a list of items."""
+type Blog_pageConnectionConnection {
+  """A list of edges."""
+  edges: [Blog_pageConnectionEdge]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+  totalCount: Long!
+}
+
+"""An edge in a connection."""
+type Blog_pageConnectionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Blog_page!
+}
+
 """DateTime"""
 scalar DateTime
 
@@ -77,7 +104,9 @@ type PageInfo {
 
 type Query {
   _allDocuments(after: String, before: String, first: Int, firstPublicationDate: DateTime, firstPublicationDate_after: DateTime, firstPublicationDate_before: DateTime, fulltext: String, id: String, id_in: [String!], lang: String, last: Int, lastPublicationDate: DateTime, lastPublicationDate_after: DateTime, lastPublicationDate_before: DateTime, similar: similar, sortBy: SortDocumentsBy, tags: [String!], tags_in: [String!], type: String, type_in: [String!]): _DocumentConnection!
+  allBlog_pages(after: String, before: String, first: Int, firstPublicationDate: DateTime, firstPublicationDate_after: DateTime, firstPublicationDate_before: DateTime, fulltext: String, id: String, id_in: [String!], lang: String, last: Int, lastPublicationDate: DateTime, lastPublicationDate_after: DateTime, lastPublicationDate_before: DateTime, similar: similar, sortBy: SortBlog_pagey, tags: [String!], tags_in: [String!], uid: String, uid_in: [String!], where: WhereBlog_page): Blog_pageConnectionConnection!
   allHome_pages(after: String, before: String, first: Int, firstPublicationDate: DateTime, firstPublicationDate_after: DateTime, firstPublicationDate_before: DateTime, fulltext: String, id: String, id_in: [String!], lang: String, last: Int, lastPublicationDate: DateTime, lastPublicationDate_after: DateTime, lastPublicationDate_before: DateTime, similar: similar, sortBy: SortHome_pagey, tags: [String!], tags_in: [String!], uid: String, uid_in: [String!], where: WhereHome_page): Home_pageConnectionConnection!
+  blog_page(lang: String!, uid: String!): Blog_page
 }
 
 type RelatedDocument {
@@ -94,6 +123,17 @@ type RelatedDocument {
   uid: String
 }
 
+enum SortBlog_pagey {
+  content_ASC
+  content_DESC
+  meta_firstPublicationDate_ASC
+  meta_firstPublicationDate_DESC
+  meta_lastPublicationDate_ASC
+  meta_lastPublicationDate_DESC
+  title_ASC
+  title_DESC
+}
+
 enum SortDocumentsBy {
   meta_firstPublicationDate_ASC
   meta_firstPublicationDate_DESC
@@ -108,6 +148,14 @@ enum SortHome_pagey {
   meta_firstPublicationDate_DESC
   meta_lastPublicationDate_ASC
   meta_lastPublicationDate_DESC
+}
+
+input WhereBlog_page {
+  """content"""
+  content_fulltext: String
+
+  """title"""
+  title_fulltext: String
 }
 
 input WhereHome_page {
