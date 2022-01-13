@@ -1,6 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# How this repository was created
 
-## Getting Started
+![alt text](./.github/result.gif "Result")
+
+https://medium.com/geekculture/prismic-io-with-next-js-and-graphql-getting-started-f9e7986b39e2
+
+https://artem-diashkin.medium.com/prismic-io-with-next-js-and-graphql-dynamic-routes-ec2761ae42eb
+
+# Start
 
 First, run the development server:
 
